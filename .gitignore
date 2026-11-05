@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+work/
+data/
+index/
+results/*/per_question_*.csv
+*.db
+*.pt
+*.npy

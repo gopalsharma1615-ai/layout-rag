@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "layout-rag"
+version = "0.1.0"
+description = "Layout-aware PDF chunking (typography-based heading levels, tables with headers, token-exact budgets) and hybrid dense+BM25 retrieval with a local cross-encoder reranker. CPU-only; no LLM in the indexing path."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Gopal Sharma" }]
+requires-python = ">=3.10"
+dependencies = ["pymupdf>=1.24", "numpy>=1.26", "rank-bm25>=0.2.2", "transformers>=4.40"]
+
+[project.optional-dependencies]
+embed = ["sentence-transformers>=3.0"]
+layout = ["ultralytics>=8.2", "huggingface_hub>=0.23"]
+ocr = ["pytesseract>=0.3.10", "pillow>=10"]
+milvus = ["pymilvus>=2.5", "milvus-lite>=2.4"]
+all = ["layout-rag[embed,layout,ocr,milvus]"]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+layout-rag = "layout_rag.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/gopalsharma1615-ai/layout-rag"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["src", "tests", "bench"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
